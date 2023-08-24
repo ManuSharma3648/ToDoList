@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/home.css">
+
+</head>
+
+<body>
+
+    <h1 id="heading">
+        To-do List
+    </h1>
+
+    <div id="container">
+        <form action="/create-task" method="post">
+
+            <input type="text" name="taskName" class="question" id="nme" required autocomplete="off" />
+            <label for="nme"><span>Enter a task</span></label>
+
+            <label for="task-type" class="question">Select a task type:</label>
+            <select id="task-type" name="taskType" class="question" required>
+                <option value="" disabled selected>Select a task type</option>
+                <option value="personal">Personal</option>
+                <option value="work">Work</option>
+                <option value="other">Other</option>
+            </select>
+            <textarea name="taskDescription" rows="2" class="question" id="msg" required autocomplete="off"></textarea>
+            <label for="msg"><span>Task Description</span></label>
+
+            <div id="date-con">
+
+                <label id="date" for="Date">Pick a due date: </label>
+                <input type="date" name="taskDueDate" id="datepicker" data-role="calendarpicker" required />
+            </div>
+
+            <button class="button-89" role="button">Add task</button>
+
+        </form>
+
+    </div>
+
+    <div id="task-container">
+        <ul id="task-list">
+            <% for (let i=0; i < to_do_tasks.length; i++) { %>
+                <li>
+                    <p><strong>Serial Number:</strong>
+                        <%= to_do_tasks[i].serialNumber %>
+                    </p>
+                    <div id="details">
+                        <p><strong>Task Name:</strong>
+                            <%= to_do_tasks[i].taskName %>
+                        </p>
+                        <p><strong>Due Date:</strong>
+                            <%= to_do_tasks[i].taskDueDate %>
+                        </p>
+                        <p><strong>Task Type:</strong>
+                            <%= to_do_tasks[i].taskType %>
+                        </p>
+                        <p><strong>Task Description:</strong>
+                            <%= to_do_tasks[i].taskDescription %>
+                        </p>
+                    </div>
+                    <div class="del-button">
+                        <a href="/delete-task?taskId=<%= to_do_tasks[i]._id %>">
+                            <button class="delete-button">Delete</button>
+                        </a>
+                    </div>
+                </li>
+                <% } %>
+        </ul>
+    </div>
+</body>
+<script src="/js/home.js"></script>
+
+</html>
